@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders - Woodworking Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Additional styles specific to the orders page */
+        .orders-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/orders-header.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 8rem 0;
+            margin-top: 5rem;
+        }
+
+        .orders-content {
+            padding: 5rem 0;
+        }
+
+        .order-process {
+            margin-bottom: 4rem;
+        }
+
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .process-step {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 0 1rem;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .process-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 2.5rem;
+            right: -1rem;
+            width: 2rem;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 5rem;
+            height: 5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1.5rem;
+        }
+
+        .process-step h3 {
+            margin-bottom: 1rem;
+        }
+
+        .order-form-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        .order-form h2 {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: var(--font-main);
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--accent-color);
+        }
+
+        .form-message {
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .form-message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .form-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .faq-section {
+            margin-top: 5rem;
+        }
+
+        .faq-container {
+            margin-top: 2rem;
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background-color: var(--light-color);
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 1rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer.active {
+            padding: 1rem;
+            max-height: 500px;
+        }
+
+        .testimonials-section {
+            margin-top: 5rem;
+            background-color: var(--light-color);
+            padding: 4rem 0;
+        }
+
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .testimonial-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-size: 4rem;
+            color: var(--light-color);
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .testimonial-content {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            margin-bottom: 0.2rem;
+        }
+
+        .author-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .process-step:not(:last-child)::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Woodcraft Portfolio</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="orders.html">Orders</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="orders-header">
+        <div class="container">
+            <h1>Custom Woodworking Orders</h1>
+            <p>Commission a unique, handcrafted piece for your home or business</p>
+        </div>
+    </section>
+
+    <section class="orders-content">
+        <div class="container">
+            <div class="order-process">
+                <h2>How the Custom Order Process Works</h2>
+                <p>Creating a custom woodworking piece is a collaborative journey. Here's how we'll work together to bring your vision to life:</p>
+                
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <h3>Initial Consultation</h3>
+                        <p>We'll discuss your ideas, requirements, space constraints, and aesthetic preferences to understand your vision.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <h3>Design & Quote</h3>
+                        <p>I'll create a design concept and provide a detailed quote based on materials, complexity, and timeline.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <h3>Approval & Deposit</h3>
+                        <p>Once you approve the design and quote, a 50% deposit secures your place in the production schedule.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <h3>Crafting Process</h3>
+                        <p>I'll begin building your piece, providing regular updates and progress photos throughout the process.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">5</div>
+                        <h3>Delivery & Installation</h3>
+                        <p>Upon completion and final payment, your custom piece will be delivered and installed in your space.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-form-container">
+                <form class="order-form" id="orderForm">
+                    <h2>Start Your Custom Order</h2>
+                    <div id="formMessage" class="form-message"></div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projectType">Project Type *</label>
+                        <select id="projectType" name="projectType" required>
+                            <option value="">-- Select Project Type --</option>
+                            <option value="table">Table</option>
+                            <option value="chair">Chair/Seating</option>
+                            <option value="cabinet">Cabinet/Storage</option>
+                            <option value="shelf">Shelving</option>
+                            <option value="decor">Decorative Item</option>
+                            <option value="outdoor">Outdoor Furniture</option>
+                            <option value="other">Other (please specify)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="otherProjectType">If "Other," please specify:</label>
+                        <input type="text" id="otherProjectType" name="otherProjectType">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="woodType">Preferred Wood Type</label>
+                            <select id="woodType" name="woodType">
+                                <option value="">-- Select Wood Type --</option>
+                                <option value="oak">Oak</option>
+                                <option value="maple">Maple</option>
+                                <option value="walnut">Walnut</option>
+                                <option value="cherry">Cherry</option>
+                                <option value="pine">Pine</option>
+                                <option value="cedar">Cedar</option>
+                                <option value="mahogany">Mahogany</option>
+                                <option value="other">Other/Not Sure</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="budget">Approximate Budget ($USD)</label>
+                            <select id="budget" name="budget">
+                                <option value="">-- Select Budget Range --</option>
+                                <option value="under500">Under $500</option>
+                                <option value="500-1000">$500 - $1,000</option>
+                                <option value="1000-2500">$1,000 - $2,500</option>
+                                <option value="2500-5000">$2,500 - $5,000</option>
+                                <option value="5000plus">$5,000+</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="timeline">Desired Timeline</label>
+                        <select id="timeline" name="timeline">
+                            <option value="">-- Select Timeline --</option>
+                            <option value="1month">Within 1 month</option>
+                            <option value="3months">Within 3 months</option>
+                            <option value="6months">Within 6 months</option>
+                            <option value="flexible">Flexible</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projectDescription">Project Description *</label>
+                        <textarea id="projectDescription" name="projectDescription" placeholder="Please describe your project in detail, including dimensions, special features, and any inspirational images or references." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="referenceImages">Reference Images (optional)</label>
+                        <input type="file" id="referenceImages" name="referenceImages" multiple accept="image/*">
+                        <p class="form-hint">You can upload up to 5 images that inspire your project.</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="additionalInfo">Additional Information</label>
+                        <textarea id="additionalInfo" name="additionalInfo" placeholder="Any other details or questions you'd like to share?"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Submit Order Request</button>
+                </form>
+            </div>
+
+            <div class="faq-section">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How long does a custom project typically take?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>The timeline for custom projects varies depending on complexity, size, and my current workload. Simple projects might take 2-4 weeks, while more complex pieces can take 8-12 weeks or more. During our initial consultation, I'll provide a more accurate timeline specific to your project.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What is your payment policy?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>I require a 50% deposit to secure your place in my production schedule and cover initial material costs. The remaining 50% is due upon completion, before delivery or shipping. For larger projects, we may arrange a payment schedule with additional installments.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Do you offer delivery and installation?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, I offer delivery and installation services for local clients (within 50 miles). For clients outside this area, I can arrange shipping with trusted carriers who specialize in furniture transport. Delivery and shipping costs are not included in the project quote and will be calculated separately.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What if I'm not satisfied with the final product?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Customer satisfaction is my top priority. I maintain open communication throughout the process and provide progress updates to ensure the final piece meets your expectations. If there are any issues with craftsmanship or if the piece doesn't match the approved design, I'll work with you to make it right.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Do you offer warranties on your work?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, all my custom pieces come with a 1-year warranty against defects in materials and workmanship under normal use. This warranty doesn't cover damage from misuse, accidents, or natural wear and tear. I also provide care instructions with each piece to help you maintain its beauty for years to come.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Can you match a specific style or piece I've seen elsewhere?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Absolutely! I can create pieces inspired by specific styles, eras, or existing furniture. Reference images are extremely helpful in this process. While I don't create exact replicas of other artisans' work, I can incorporate elements you love into a unique piece that suits your needs and space.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonials-section">
+                <div class="container">
+                    <h2>What Clients Say About Their Custom Pieces</h2>
+                    <div class="testimonials-container">
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <p>The dining table we commissioned is absolutely stunning. The attention to detail and craftsmanship exceeded our expectations. It's become the centerpiece of our home where we gather for family meals.</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <img src="images/testimonial1.jpg" alt="Sarah Johnson">
+                                <div class="author-info">
+                                    <h4>Sarah Johnson</h4>
+                                    <p>Custom Dining Table</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <p>Working with this woodshop was a collaborative experience from start to finish. They listened to my ideas and created a bookshelf that perfectly fits my space and style. The craftsmanship is impeccable.</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <img src="images/testimonial2.jpg" alt="Michael Thompson">
+                                <div class="author-info">
+                                    <h4>Michael Thompson</h4>
+                                    <p>Custom Bookshelf</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <p>Our kitchen island is not only beautiful but incredibly functional. The design process was thorough, ensuring every detail was considered. The finished piece transformed our kitchen entirely.</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <img src="images/testimonial3.jpg" alt="Emily Rodriguez">
+                                <div class="author-info">
+                                    <h4>Emily Rodriguez</h4>
+                                    <p>Custom Kitchen Island</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Discuss Your Custom Project?</h2>
+            <p>Fill out the order form above or contact me directly to start the conversation</p>
+            <a href="contact.html" class="btn">Contact Me</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Woodcraft Portfolio</h3>
+                    <p>Quality woodworking since 2015</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="orders.html">Orders</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-envelope"></i> info@woodcraftportfolio.com</p>
+                    <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Workshop Location, City, State</p>
+                </div>
+                <div class="footer-social">
+                    <h4>Follow Me</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Woodcraft Portfolio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // FAQ accordion functionality
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                // Toggle active class on the question
+                question.classList.toggle('active');
+                
+                // Toggle active class on the answer
+                const answer = question.nextElementSibling;
+                answer.classList.toggle('active');
+            });
+        });
+
+        // Handle form submission
+        const orderForm = document.getElementById('orderForm');
+        const formMessage = document.getElementById('formMessage');
+        
+        orderForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // In a real implementation, you would send the form data to a server
+            // For this demo, we'll just show a success message
+            formMessage.textContent = 'Thank you for your order request! I will review your project details and contact you within 48 hours to discuss next steps.';
+            formMessage.classList.add('success');
+            formMessage.style.display = 'block';
+            
+            // Reset the form
+            orderForm.reset();
+            
+            // Scroll to the message
+            formMessage.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Show/hide "Other project type" field based on selection
+        const projectTypeSelect = document.getElementById('projectType');
+        const otherProjectTypeField = document.getElementById('otherProjectType');
+        const otherProjectTypeContainer = otherProjectTypeField.parentElement;
+        
+        // Initially hide the "other" field
+        otherProjectTypeContainer.style.display = 'none';
+        
+        projectTypeSelect.addEventListener('change', function() {
+            if (this.value === 'other') {
+                otherProjectTypeContainer.style.display = 'block';
+                otherProjectTypeField.setAttribute('required', '');
+            } else {
+                otherProjectTypeContainer.style.display = 'none';
+                otherProjectTypeField.removeAttribute('required');
+            }
+        });
+    </script>
+</body>
+</html>

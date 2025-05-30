@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Woodworking Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Additional styles specific to the blog page */
+        .blog-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/blog-header.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 8rem 0;
+            margin-top: 5rem;
+        }
+
+        .blog-content {
+            padding: 5rem 0;
+        }
+
+        .blog-container {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 3rem;
+        }
+
+        .blog-posts {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .blog-post {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-post-image {
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .blog-post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-post:hover .blog-post-image img {
+            transform: scale(1.05);
+        }
+
+        .blog-post-content {
+            padding: 2rem;
+        }
+
+        .blog-post-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+
+        .blog-post-meta span {
+            display: flex;
+            align-items: center;
+            margin-right: 1.5rem;
+        }
+
+        .blog-post-meta i {
+            margin-right: 0.5rem;
+        }
+
+        .blog-post-content h2 {
+            margin-bottom: 1rem;
+        }
+
+        .blog-post-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-section h3 {
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .recent-posts-list {
+            list-style: none;
+        }
+
+        .recent-posts-list li {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .recent-posts-list li:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .recent-posts-list a {
+            display: flex;
+            align-items: center;
+        }
+
+        .recent-post-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-right: 1rem;
+        }
+
+        .recent-post-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .recent-post-title {
+            font-weight: 500;
+        }
+
+        .categories-list {
+            list-style: none;
+        }
+
+        .categories-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .categories-list a {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .categories-list a:hover {
+            color: var(--primary-color);
+        }
+
+        .categories-list .count {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .tags-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .search-form {
+            display: flex;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-right: none;
+            border-radius: 4px 0 0 4px;
+            font-family: var(--font-main);
+        }
+
+        .search-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0 1rem;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .pagination a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            margin: 0 5px;
+            border-radius: 50%;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .pagination a:hover,
+        .pagination a.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        @media (max-width: 992px) {
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .blog-sidebar {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .blog-post-image {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Woodcraft Portfolio</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="orders.html">Orders</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="blog-header">
+        <div class="container">
+            <h1>Woodworking Blog</h1>
+            <p>Tips, techniques, and stories from the workshop</p>
+        </div>
+    </section>
+
+    <section class="blog-content">
+        <div class="container">
+            <div class="blog-container">
+                <div class="blog-posts">
+                    <!-- Blog Post 1 -->
+                    <article class="blog-post">
+                        <div class="blog-post-image">
+                            <img src="images/blog1.jpg" alt="Choosing the Right Wood">
+                        </div>
+                        <div class="blog-post-content">
+                            <div class="blog-post-meta">
+                                <span><i class="fas fa-calendar"></i> May 25, 2025</span>
+                                <span><i class="fas fa-folder"></i> Materials</span>
+                                <span><i class="fas fa-comments"></i> 12 Comments</span>
+                            </div>
+                            <h2>How to Choose the Right Wood for Your Project</h2>
+                            <p>Selecting the appropriate wood species is one of the most critical decisions in any woodworking project. Different woods offer varying levels of durability, workability, grain patterns, and color tones that can dramatically impact your final piece.</p>
+                            <p>In this comprehensive guide, I'll walk you through the characteristics of popular hardwoods and softwoods, helping you make informed decisions for your next project. We'll explore everything from the rich, dark tones of walnut to the light, workable nature of pine.</p>
+                            <a href="blog-post.html" class="btn">Read More</a>
+                        </div>
+                    </article>
+
+                    <!-- Blog Post 2 -->
+                    <article class="blog-post">
+                        <div class="blog-post-image">
+                            <img src="images/blog2.jpg" alt="Essential Tools">
+                        </div>
+                        <div class="blog-post-content">
+                            <div class="blog-post-meta">
+                                <span><i class="fas fa-calendar"></i> May 18, 2025</span>
+                                <span><i class="fas fa-folder"></i> Tools</span>
+                                <span><i class="fas fa-comments"></i> 8 Comments</span>
+                            </div>
+                            <h2>10 Essential Tools Every Woodworker Needs</h2>
+                            <p>Whether you're just starting your woodworking journey or looking to upgrade your workshop, having the right tools is essential for creating beautiful, precise work. While the temptation to buy every shiny new tool is strong, focusing on quality essentials will serve you better in the long run.</p>
+                            <p>In this article, I share the ten tools I couldn't live without in my workshop, from hand tools that connect you to woodworking traditions to the power tools that help you work efficiently. I'll also provide recommendations at different price points to suit various budgets.</p>
+                            <a href="blog-post.html" class="btn">Read More</a>
+                        </div>
+                    </article>
+
+                    <!-- Blog Post 3 -->
+                    <article class="blog-post">
+                        <div class="blog-post-image">
+                            <img src="images/blog3.jpg" alt="Joinery Techniques">
+                        </div>
+                        <div class="blog-post-content">
+                            <div class="blog-post-meta">
+                                <span><i class="fas fa-calendar"></i> May 10, 2025</span>
+                                <span><i class="fas fa-folder"></i> Techniques</span>
+                                <span><i class="fas fa-comments"></i> 15 Comments</span>
+                            </div>
+                            <h2>Mastering Basic Joinery Techniques</h2>
+                            <p>Strong, well-executed joints are the foundation of durable woodworking projects. While modern fasteners and adhesives have their place, traditional joinery methods have stood the test of time for good reason – they create furniture that can last for generations.</p>
+                            <p>This guide covers five fundamental joinery techniques that every woodworker should master: dovetails, mortise and tenon, lap joints, bridle joints, and dowel joints. I'll walk through each method with step-by-step instructions and tips for achieving clean, tight-fitting joints that will elevate your woodworking projects.</p>
+                            <a href="blog-post.html" class="btn">Read More</a>
+                        </div>
+                    </article>
+
+                    <!-- Blog Post 4 -->
+                    <article class="blog-post">
+                        <div class="blog-post-image">
+                            <img src="images/blog4.jpg" alt="Finishing Techniques">
+                        </div>
+                        <div class="blog-post-content">
+                            <div class="blog-post-meta">
+                                <span><i class="fas fa-calendar"></i> May 3, 2025</span>
+                                <span><i class="fas fa-folder"></i> Finishing</span>
+                                <span><i class="fas fa-comments"></i> 10 Comments</span>
+                            </div>
+                            <h2>Wood Finishing Techniques for a Professional Look</h2>
+                            <p>The finishing process can make or break a woodworking project. A well-executed finish not only protects the wood but also enhances its natural beauty, bringing out the depth of grain and color that makes each piece unique.</p>
+                            <p>In this comprehensive guide, I'll cover everything from surface preparation to final buffing. We'll explore different types of finishes including oils, varnishes, shellac, and water-based options, discussing the pros and cons of each. I'll also share my favorite techniques for achieving glass-smooth surfaces and rich, lustrous patinas that will make your projects stand out.</p>
+                            <a href="blog-post.html" class="btn">Read More</a>
+                        </div>
+                    </article>
+
+                    <!-- Pagination -->
+                    <div class="pagination">
+                        <a href="#" class="active">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#"><i class="fas fa-angle-right"></i></a>
+                    </div>
+                </div>
+
+                <aside class="blog-sidebar">
+                    <!-- Search Section -->
+                    <div class="sidebar-section">
+                        <h3>Search</h3>
+                        <form class="search-form">
+                            <input type="text" class="search-input" placeholder="Search blog...">
+                            <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+                        </form>
+                    </div>
+
+                    <!-- Recent Posts Section -->
+                    <div class="sidebar-section">
+                        <h3>Recent Posts</h3>
+                        <ul class="recent-posts-list">
+                            <li>
+                                <a href="blog-post.html">
+                                    <div class="recent-post-img">
+                                        <img src="images/blog1.jpg" alt="Choosing the Right Wood">
+                                    </div>
+                                    <span class="recent-post-title">How to Choose the Right Wood for Your Project</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="blog-post.html">
+                                    <div class="recent-post-img">
+                                        <img src="images/blog2.jpg" alt="Essential Tools">
+                                    </div>
+                                    <span class="recent-post-title">10 Essential Tools Every Woodworker Needs</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="blog-post.html">
+                                    <div class="recent-post-img">
+                                        <img src="images/blog3.jpg" alt="Joinery Techniques">
+                                    </div>
+                                    <span class="recent-post-title">Mastering Basic Joinery Techniques</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Categories Section -->
+                    <div class="sidebar-section">
+                        <h3>Categories</h3>
+                        <ul class="categories-list">
+                            <li><a href="#">Techniques <span class="count">8</span></a></li>
+                            <li><a href="#">Tools <span class="count">6</span></a></li>
+                            <li><a href="#">Materials <span class="count">5</span></a></li>
+                            <li><a href="#">Finishing <span class="count">4</span></a></li>
+                            <li><a href="#">Project Builds <span class="count">10</span></a></li>
+                            <li><a href="#">Workshop Tips <span class="count">7</span></a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Tags Section -->
+                    <div class="sidebar-section">
+                        <h3>Tags</h3>
+                        <div class="tags-list">
+                            <a href="#" class="tag">Woodworking</a>
+                            <a href="#" class="tag">DIY</a>
+                            <a href="#" class="tag">Furniture</a>
+                            <a href="#" class="tag">Hand Tools</a>
+                            <a href="#" class="tag">Power Tools</a>
+                            <a href="#" class="tag">Joinery</a>
+                            <a href="#" class="tag">Finishing</a>
+                            <a href="#" class="tag">Wood Types</a>
+                            <a href="#" class="tag">Workshop</a>
+                            <a href="#" class="tag">Tips</a>
+                        </div>
+                    </div>
+
+                    <!-- Newsletter Section -->
+                    <div class="sidebar-section">
+                        <h3>Newsletter</h3>
+                        <p>Subscribe to get updates on new blog posts and projects.</p>
+                        <form class="newsletter-form">
+                            <div class="form-group">
+                                <input type="email" placeholder="Your email address" required>
+                            </div>
+                            <button type="submit" class="btn">Subscribe</button>
+                        </form>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Want to Learn More About Woodworking?</h2>
+            <p>Check out my upcoming workshops or contact me for one-on-one instruction</p>
+            <a href="contact.html" class="btn">Get in Touch</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Woodcraft Portfolio</h3>
+                    <p>Quality woodworking since 2015</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="orders.html">Orders</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-envelope"></i> info@woodcraftportfolio.com</p>
+                    <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Workshop Location, City, State</p>
+                </div>
+                <div class="footer-social">
+                    <h4>Follow Me</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Woodcraft Portfolio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Woodworking Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Additional styles specific to the about page */
+        .about-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/about-header.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 8rem 0;
+            margin-top: 5rem;
+        }
+
+        .about-content {
+            padding: 5rem 0;
+        }
+
+        .about-intro {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin-bottom: 5rem;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-text {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .about-text h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .signature {
+            font-family: 'Pacifico', cursive;
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-top: 2rem;
+        }
+
+        .journey-section {
+            margin-bottom: 5rem;
+        }
+
+        .journey-section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: white;
+            border: 4px solid var(--primary-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            left: 50%;
+        }
+
+        .right::after {
+            left: -16px;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .timeline-content .date {
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .values-section {
+            background-color: var(--light-color);
+            padding: 5rem 0;
+            margin-bottom: 5rem;
+        }
+
+        .values-section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .values-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .value-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .value-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .value-card h3 {
+            margin-bottom: 1rem;
+        }
+
+        .workshop-section {
+            margin-bottom: 5rem;
+        }
+
+        .workshop-section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .workshop-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            height: 250px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        .skills-section {
+            margin-bottom: 5rem;
+        }
+
+        .skills-section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-item {
+            text-align: center;
+        }
+
+        .skill-name {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .skill-bar {
+            height: 10px;
+            background-color: var(--light-color);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .skill-level {
+            height: 100%;
+            background-color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 15px;
+                right: auto;
+            }
+            
+            .left, .right {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Woodcraft Portfolio</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="orders.html">Orders</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="about-header">
+        <div class="container">
+            <h1>About Me</h1>
+            <p>Craftsman, designer, and lifelong woodworking enthusiast</p>
+        </div>
+    </section>
+
+    <section class="about-content">
+        <div class="container">
+            <div class="about-intro">
+                <div class="about-image">
+                    <img src="images/craftsman.jpg" alt="Craftsman in Workshop">
+                </div>
+                <div class="about-text">
+                    <h2>Crafting Stories in Wood</h2>
+                    <p>Welcome to my woodworking world. I'm a passionate craftsman dedicated to creating beautiful, functional pieces that tell stories and become part of your family's history.</p>
+                    <p>My journey in woodworking began over 10 years ago when I restored my grandfather's old workbench. That project ignited a passion that has only grown stronger with each piece I create. What started as a weekend hobby has evolved into a full-time pursuit of craftsmanship excellence.</p>
+                    <p>I believe that furniture should be both beautiful and practical, designed to serve its purpose while enhancing the spaces we live in. Each piece I create is crafted with attention to detail, using traditional joinery techniques and high-quality materials that ensure longevity.</p>
+                    <p>My work is influenced by various styles, from Shaker simplicity to mid-century modern, but always with a focus on highlighting the natural beauty of the wood. I source materials responsibly, often working with local sawyers to find unique, character-filled pieces of timber that tell their own stories.</p>
+                    <p>When I'm not in the workshop, you might find me exploring forests looking for inspiration, teaching woodworking classes at the local community center, or sketching new design ideas over a cup of coffee.</p>
+                    <div class="signature">John Craftsman</div>
+                </div>
+            </div>
+
+            <div class="journey-section">
+                <h2>My Woodworking Journey</h2>
+                <div class="timeline">
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>The Beginning</h3>
+                            <div class="date">2015</div>
+                            <p>Restored my grandfather's workbench and built my first small projects using his old tools. Began studying woodworking through books and online resources.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>Formal Training</h3>
+                            <div class="date">2016-2017</div>
+                            <p>Completed a furniture making course at the local craft school. Learned traditional joinery techniques and design principles from master craftsmen.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>First Workshop</h3>
+                            <div class="date">2018</div>
+                            <p>Set up my first dedicated workshop space and invested in quality tools. Began taking on small commission projects for friends and family.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>Growing the Business</h3>
+                            <div class="date">2019-2020</div>
+                            <p>Expanded my client base and started participating in local craft fairs. Developed my signature style and focused on building a portfolio of work.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>Full-Time Craftsman</h3>
+                            <div class="date">2021</div>
+                            <p>Took the leap to become a full-time woodworker. Moved to a larger workshop space and began focusing on custom furniture commissions.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>Teaching & Community</h3>
+                            <div class="date">2022-2023</div>
+                            <p>Started teaching woodworking classes and workshops. Began collaborating with other local artisans on joint projects.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>Today</h3>
+                            <div class="date">2024-Present</div>
+                            <p>Continuing to grow my craft and business, focusing on creating heirloom-quality pieces that will be cherished for generations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="values-section">
+                <div class="container">
+                    <h2>My Woodworking Values</h2>
+                    <div class="values-container">
+                        <div class="value-card">
+                            <i class="fas fa-tree"></i>
+                            <h3>Sustainability</h3>
+                            <p>I source materials responsibly, often using reclaimed wood or timber from sustainably managed forests. Each piece is designed to last for generations, reducing waste and environmental impact.</p>
+                        </div>
+                        <div class="value-card">
+                            <i class="fas fa-hands"></i>
+                            <h3>Craftsmanship</h3>
+                            <p>I believe in doing things right, not just quickly. Each joint is carefully fitted, each surface meticulously prepared, and every detail considered to create pieces that stand the test of time.</p>
+                        </div>
+                        <div class="value-card">
+                            <i class="fas fa-lightbulb"></i>
+                            <h3>Functionality</h3>
+                            <p>Beautiful furniture should also be useful. I design pieces that serve their purpose elegantly, considering ergonomics, proportions, and the practical needs of the users.</p>
+                        </div>
+                        <div class="value-card">
+                            <i class="fas fa-comments"></i>
+                            <h3>Collaboration</h3>
+                            <p>Creating custom pieces is a partnership. I work closely with clients to understand their vision, preferences, and needs, ensuring the final piece exceeds expectations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="workshop-section">
+                <h2>My Workshop</h2>
+                <p class="text-center" style="text-align: center; margin-bottom: 2rem;">Take a peek into where the magic happens. My workshop is equipped with a blend of traditional hand tools and modern machinery, allowing me to work efficiently while maintaining the connection to traditional craftsmanship.</p>
+                <div class="workshop-gallery">
+                    <div class="gallery-item">
+                        <img src="images/workshop1.jpg" alt="Workshop Overview">
+                        <div class="gallery-caption">The main workshop space where projects come to life</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/workshop2.jpg" alt="Hand Tools">
+                        <div class="gallery-caption">My collection of hand tools, many inherited or vintage</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/workshop3.jpg" alt="Machinery">
+                        <div class="gallery-caption">Modern machinery for precision and efficiency</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/workshop4.jpg" alt="Wood Storage">
+                        <div class="gallery-caption">Lumber storage with a variety of domestic and exotic woods</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/workshop5.jpg" alt="Design Area">
+                        <div class="gallery-caption">Design area where ideas are sketched and planned</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/workshop6.jpg" alt="Finishing Area">
+                        <div class="gallery-caption">Finishing area where projects receive their final touches</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skills-section">
+                <h2>Woodworking Skills</h2>
+                <div class="skills-container">
+                    <div class="skill-item">
+                        <div class="skill-name">Joinery</div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Design</div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Finishing</div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Hand Tool Work</div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Machine Operation</div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Wood Carving</div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Veneering</div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Inlay Work</div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 70%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Create Something Beautiful Together?</h2>
+            <p>Let's discuss your ideas and bring them to life in wood</p>
+            <a href="contact.html" class="btn">Get in Touch</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Woodcraft Portfolio</h3>
+                    <p>Quality woodworking since 2015</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="orders.html">Orders</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-envelope"></i> info@woodcraftportfolio.com</p>
+                    <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Workshop Location, City, State</p>
+                </div>
+                <div class="footer-social">
+                    <h4>Follow Me</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Woodcraft Portfolio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
